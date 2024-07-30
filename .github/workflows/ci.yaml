@@ -1,0 +1,20 @@
+name: desafio-ci-fc
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  run-ci:
+    runs-on: ubunto-latest
+    steps:
+      - uses: action/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: go test -coverprofile=coverage.out
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
